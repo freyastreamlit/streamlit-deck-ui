@@ -8,6 +8,10 @@ type DeckSliderProps = {
   min?: number;
   max?: number;
 
+  orientation?:
+    | "vertical"
+    | "horizontal";
+
   onChange?: (
     value: number
   ) => void;
@@ -19,90 +23,82 @@ export function DeckSlider({
   min = -1,
   max = 1,
 
+  orientation = "vertical",
+
   onChange,
 }: DeckSliderProps) {
-  const railRef =
-    useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
 
-  function updatePosition(
-    clientY: number
-  ) {
+  function updatePosition( clientX: number, clientY: number ) {
+
     if (!railRef.current) return;
 
-    const rect =
-      railRef.current.getBoundingClientRect();
+    const rect = railRef.current.getBoundingClientRect();
 
-    let relative =
-      (clientY - rect.top) /
-      rect.height;
+    let relative = 0;
 
-    relative =
-      Math.max(0, Math.min(1, relative));
+    if ( orientation === "vertical" ) {
+      relative = (clientY - rect.top) / rect.height;
+    } else {
+      relative = (clientX - rect.left) / rect.width;
+    }
 
-    const mapped =
-      max -
-      relative * (max - min);
+    relative = Math.max(0, Math.min(1, relative));
+
+    const mapped = orientation === "vertical"
+                  ? max - relative * (max - min)
+                  : min + relative * (max - min);
 
     onChange?.(mapped);
   }
 
-  function handlePointerDown(
-    e: React.PointerEvent<HTMLDivElement>
-  ) {
-    updatePosition(e.clientY);
+  function handlePointerDown( e: React.PointerEvent<HTMLDivElement> ) {
 
-    const handleMove = (
-      ev: PointerEvent
-    ) => {
-      updatePosition(ev.clientY);
-    };
+    updatePosition( e.clientX, e.clientY );
+
+    const handleMove = ( ev: PointerEvent ) => {
+      updatePosition( ev.clientX, ev.clientY ); };
 
     const handleUp = () => {
-      window.removeEventListener(
-        "pointermove",
-        handleMove
-      );
-
-      window.removeEventListener(
-        "pointerup",
-        handleUp
-      );
+      window.removeEventListener( "pointermove", handleMove );
+      window.removeEventListener( "pointerup", handleUp );
     };
 
-    window.addEventListener(
-      "pointermove",
-      handleMove
-    );
+    window.addEventListener( "pointermove", handleMove );
 
-    window.addEventListener(
-      "pointerup",
-      handleUp
-    );
+    window.addEventListener( "pointerup", handleUp );
   }
 
   const normalized =
-    (max - value) /
-    (max - min);
+    orientation === "vertical"
+      ? (max - value) /
+        (max - min)
+      : (value - min) /
+        (max - min);
+
+  const isVertical = orientation === "vertical";
 
   return (
-    <div className="deck-slider">
-      <div
-        ref={railRef}
-        className="deck-slider-rail"
-        onPointerDown={handlePointerDown}
-      >
-        <div className="deck-slider-center-marker" />
-
+    <div className={`deck-slider-shell ${orientation}`} >
+      <div className={`deck-slider ${orientation}`} >
         <div
-          className="deck-slider-thumb"
-          style={{
-            top: `${normalized * 100}%`,
-          }}
-        />
-      </div>
+          ref={railRef}
+          className={` deck-slider-rail ${orientation}`}
+          onPointerDown={ handlePointerDown }
+        >
+          <div className="deck-slider-center-marker" />
 
-      <div className="deck-slider-value">
-        {value.toFixed(2)}
+          <div className="deck-slider-thumb"
+            style={
+              isVertical
+                ? { top: `${ normalized * 100 }%` }
+                : { left: `${ normalized * 100 }%` }
+            }
+          />
+        </div>
+
+        <div className="deck-slider-value"> {value.toFixed(2)} </div>
+
       </div>
     </div>
   );

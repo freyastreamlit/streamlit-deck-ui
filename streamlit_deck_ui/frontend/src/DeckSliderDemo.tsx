@@ -1,7 +1,5 @@
 import { DeckPanel } from "./components/DeckPanel/DeckPanel";
 
-import { ControlBay } from "./components/ControlBay/ControlBay";
-
 import { DeckSlider } from "./components/DeckSlider/DeckSlider";
 
 type DeckSliderDemoProps = {
@@ -39,16 +37,14 @@ export function DeckSliderDemo({
       }}
     >
       <DeckPanel title="STREAMLIT DECK UI">
-        <ControlBay>
-          <DeckSlider
-            value={value}
-            min={min}
-            max={max}
-            onChange={onChange}
-          />
-        </ControlBay>
+        <DeckSlider
+          value={value}
+          min={min}
+          max={max}
+          orientation="horizontal"
+          onChange={onChange}
+        />
       </DeckPanel>
     </div>
   );
 }
-
