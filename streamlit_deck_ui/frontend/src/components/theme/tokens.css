@@ -1,0 +1,66 @@
+:root {
+  --deck-bg: #1a1d20;
+
+  --deck-panel-top: #30353a;
+  --deck-panel-bottom: #1f2327;
+
+  --deck-text:
+    rgba(230,225,215,0.78);
+
+  --deck-text-dim:
+    rgba(230,225,215,0.45);
+
+  --deck-amber:
+    rgba(255,180,80,0.42);
+
+  --deck-amber-dim:
+    rgba(255,180,80,0.10);
+
+  --deck-shadow-dark:
+    rgba(0,0,0,0.45);
+
+  --deck-shadow-light:
+    rgba(255,255,255,0.05);
+
+  --deck-radius: 22px;
+
+  --deck-transition:
+    120ms ease;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+
+  min-height: 100vh;
+
+  background:
+    var(--deck-bg);
+
+  color:
+    var(--deck-text);
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+
+  text-rendering:
+    optimizeLegibility;
+
+  -webkit-font-smoothing:
+    antialiased;
+
+  -moz-osx-font-smoothing:
+    grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}

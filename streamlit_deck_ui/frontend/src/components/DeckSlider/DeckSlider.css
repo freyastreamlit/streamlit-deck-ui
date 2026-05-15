@@ -1,0 +1,133 @@
+.deck-slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--deck-text);
+
+  user-select: none;
+}
+
+.deck-slider-root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  touch-action: none;
+}
+
+.deck-slider-root.vertical {
+  width: 32px;
+  height: 220px;
+}
+
+.deck-slider-root.horizontal {
+  width: 220px;
+  height: 32px;
+}
+
+.deck-slider-track {
+  position: relative;
+  flex-grow: 1;
+
+  background: var(--deck-track);
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  box-shadow:
+    inset 2px 2px 6px rgba(0,0,0,0.5),
+    inset -1px -1px 2px rgba(255,255,255,0.03);
+}
+
+.vertical .deck-slider-track {
+  width: 10px;
+  height: 100%;
+}
+
+.horizontal .deck-slider-track {
+  height: 10px;
+  width: 100%;
+}
+
+.deck-slider-range {
+  position: absolute;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(255,180,80,0.10),
+      rgba(255,180,80,0.35)
+    );
+
+  box-shadow:
+    0 0 8px rgba(255,180,80,0.08);
+}
+
+.vertical .deck-slider-range {
+  width: 100%;
+  bottom: 0;
+}
+
+.horizontal .deck-slider-range {
+  height: 100%;
+  left: 0;
+}
+
+.deck-slider-thumb {
+  display: block;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #5d6369,
+      #2b3035
+    );
+
+  border: none;
+
+  box-shadow:
+    inset 1px 1px 2px rgba(255,255,255,0.06),
+    inset -2px -2px 4px rgba(0,0,0,0.4),
+    0 2px 4px rgba(0,0,0,0.45);
+
+  transition:
+    transform var(--deck-transition),
+    box-shadow var(--deck-transition);
+
+  cursor: grab;
+}
+
+.deck-slider-thumb:hover {
+  transform: scale(1.05);
+}
+
+.deck-slider-thumb:active {
+  cursor: grabbing;
+}
+
+.deck-slider-thumb:focus {
+  outline: none;
+
+  box-shadow:
+    0 0 0 2px rgba(255,180,80,0.12),
+    inset 1px 1px 2px rgba(255,255,255,0.08);
+}
+
+.deck-slider-label {
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+
+  opacity: 0.82;
+}
+
+.deck-slider-value {
+  font-size: 0.74rem;
+  opacity: 0.55;
+}
