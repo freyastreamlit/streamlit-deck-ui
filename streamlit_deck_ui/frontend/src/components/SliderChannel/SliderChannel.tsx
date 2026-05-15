@@ -1,49 +1,30 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-import "./DeckSlider.css";
+import "./SliderChannel.css";
 
-type DeckSliderProps = {
-  value: number;
-
-  min?: number;
-  max?: number;
-
-  onChange?: (
-    value: number
-  ) => void;
-};
-
-export function DeckSlider({
-  value,
-
-  min = -1,
-  max = 1,
-
-  onChange,
-}: DeckSliderProps) {
+export function SliderChannel() {
   const railRef =
     useRef<HTMLDivElement>(null);
 
-  function updatePosition(
-    clientY: number
-  ) {
+  const [value, setValue] =
+    useState(0);
+
+  function updatePosition(clientY: number) {
     if (!railRef.current) return;
 
     const rect =
       railRef.current.getBoundingClientRect();
 
     let relative =
-      (clientY - rect.top) /
-      rect.height;
+      (clientY - rect.top) / rect.height;
 
     relative =
       Math.max(0, Math.min(1, relative));
 
     const mapped =
-      max -
-      relative * (max - min);
+      1 - relative * 2;
 
-    onChange?.(mapped);
+    setValue(mapped);
   }
 
   function handlePointerDown(
@@ -80,28 +61,24 @@ export function DeckSlider({
     );
   }
 
-  const normalized =
-    (max - value) /
-    (max - min);
-
   return (
-    <div className="deck-slider">
+    <div className="slider-channel">
       <div
         ref={railRef}
-        className="deck-slider-rail"
+        className="slider-rail"
         onPointerDown={handlePointerDown}
       >
-        <div className="deck-slider-center-marker" />
+        <div className="slider-center-marker" />
 
         <div
-          className="deck-slider-thumb"
+          className="slider-thumb"
           style={{
-            top: `${normalized * 100}%`,
+            top: `${((1 - value) / 2) * 100}%`,
           }}
         />
       </div>
 
-      <div className="deck-slider-value">
+      <div className="slider-value">
         {value.toFixed(2)}
       </div>
     </div>

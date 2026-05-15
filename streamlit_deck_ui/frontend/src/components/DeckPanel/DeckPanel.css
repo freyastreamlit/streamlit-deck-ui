@@ -16,9 +16,10 @@
     1px solid rgba(255,255,255,0.04);
 
   box-shadow:
-    inset 1px 1px 1px rgba(255,255,255,0.03),
-    inset -2px -2px 6px rgba(0,0,0,0.35),
-    0 12px 30px rgba(0,0,0,0.35);
+  inset 1px 1px 1px rgba(255,255,255,0.025),
+  inset -2px -2px 4px rgba(0,0,0,0.32),
+  0 8px 18px rgba(0,0,0,0.28);
+
 }
 
 .deck-panel-title {

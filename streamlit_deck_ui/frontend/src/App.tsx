@@ -1,6 +1,15 @@
+import { useState } from "react";
+
 import { DeckPanel } from "./components/DeckPanel/DeckPanel";
 
+import { ControlBay } from "./components/ControlBay/ControlBay";
+
+import { DeckSlider } from "./components/DeckSlider/DeckSlider";
+
 export default function App() {
+  const [value, setValue] =
+    useState(0);
+
   return (
     <div
       style={{
@@ -17,18 +26,14 @@ export default function App() {
       }}
     >
       <DeckPanel title="STREAMLIT DECK UI">
-        <div
-          style={{
-            color:
-              "rgba(255,180,80,0.7)",
-
-            fontSize: "24px",
-
-            letterSpacing: "0.08em",
-          }}
-        >
-          SYSTEM ONLINE
-        </div>
+        <ControlBay>
+          <DeckSlider
+            value={value}
+            min={-1}
+            max={1}
+            onChange={setValue}
+          />
+        </ControlBay>
       </DeckPanel>
     </div>
   );
