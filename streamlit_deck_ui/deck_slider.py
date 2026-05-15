@@ -5,7 +5,7 @@ import streamlit.components.v1 as components
 
 _component_func = components.declare_component(
     "streamlit_deck_ui",
-    url="http://localhost:5173/?streamlit=1",
+    url="http://localhost:5173",
 )
 
 

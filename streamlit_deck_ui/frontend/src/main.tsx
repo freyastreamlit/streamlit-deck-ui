@@ -5,19 +5,12 @@ import "./components/theme/tokens.css";
 
 import App from "./App";
 
-import Bridge, {
-  BridgeInner,
-} from "./Bridge";
+import Bridge from "./Bridge";
 
-const isStreamlit =
-  window.location.search.includes(
-    "streamlit=1"
-  );
+const isDev = window.location.search.includes( "dev=1" );
 
 const RootComponent =
-  isStreamlit
-    ? Bridge
-    : App;
+  isDev ? App : Bridge;
 
 ReactDOM.createRoot(
   document.getElementById("root")!
