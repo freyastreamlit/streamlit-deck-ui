@@ -22,9 +22,10 @@ export default function App() {
         value={value}
         min={-1}
         max={1}
+        step={0.5}
         label="APP SLIDER"
-        // orientation="vertical"
-        orientation="horizontal"
+        orientation="vertical"
+        // orientation="horizontal"
         onChange={setValue}
       />
 

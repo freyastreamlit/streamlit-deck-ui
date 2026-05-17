@@ -15,6 +15,7 @@ value = deck_slider(
     value=st.session_state.gain,
     min_value=-1,
     max_value=1,
+    step=0.5,
     label='DECK SLIDER',
     orientation='horizontal',
     key="gain_slider",

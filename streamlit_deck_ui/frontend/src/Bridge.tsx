@@ -15,15 +15,8 @@ function Bridge( props: ComponentProps ) {
 
   const args = props.args ?? {};
 
-  const [value, setValue] = useState(args.value ?? 0);
-
-  useEffect(() => { setValue( args.value ?? 0 ); }, [args.value]);
-
-  // useEffect(() => {
-  //   const orientation = args.orientation ?? "horizontal";
-  //   const height = orientation === "vertical" ? 320 : 140;
-  //   Streamlit.setFrameHeight(height);
-  // }, [args.orientation]);
+  const initialValue = args.value ?? 0;
+  const [value, setValue] = useState(initialValue);
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -51,6 +44,7 @@ function Bridge( props: ComponentProps ) {
         value={value}
         min={args.min_value ?? -1}
         max={args.max_value ?? 1}
+        step={args.step ?? 0}
         label={args.label ?? "SLIDER"}
         orientation={ args.orientation ?? "horizontal" }
         onChange={handleChange}
