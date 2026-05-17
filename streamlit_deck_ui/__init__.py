@@ -1,1 +1,5 @@
-from .deck_slider import deck_slider
+from .streamlit_components import deck_slider
+
+__all__ = [
+    "deck_slider",
+]

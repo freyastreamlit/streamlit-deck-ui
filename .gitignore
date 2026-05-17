@@ -44,3 +44,7 @@ frontend/dist/
 .streamlit/secrets.toml
 
 streamlit_deck_ui/frontend/node_modules
+
+folder_tree_diagram.py
+repo_structure.md
+
