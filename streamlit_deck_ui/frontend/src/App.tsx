@@ -1,17 +1,33 @@
 import { useState } from "react";
 
-import { DeckSliderDemo } from "./DeckSliderDemo";
+import { DeckSlider } from "./components/DeckSlider/DeckSlider";
 
 export default function App() {
-  const [value, setValue] =
-    useState(0);
+
+  const [value, setValue] = useState(0);
 
   return (
-    <DeckSliderDemo
-      value={value}
-      min={-1}
-      max={1}
-      onChange={setValue}
-    />
+    <div
+      style={{
+        background: "#1a1d20",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "Inter, sans-serif",
+      }}
+    >
+
+      <DeckSlider
+        value={value}
+        min={-1}
+        max={1}
+        label="APP SLIDER"
+        // orientation="vertical"
+        orientation="horizontal"
+        onChange={setValue}
+      />
+
+    </div>
   );
 }

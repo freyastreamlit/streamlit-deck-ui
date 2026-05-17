@@ -19,7 +19,8 @@ value = deck_slider(
 
     min_value=-1,
     max_value=1,
-
+    label='DECK SLIDER',
+    orientation='horizontal',
     key="gain_slider",
 )
 

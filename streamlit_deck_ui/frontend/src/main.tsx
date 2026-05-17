@@ -7,7 +7,7 @@ import App from "./App";
 
 import Bridge from "./Bridge";
 
-const isDev = window.location.search.includes( "dev=1" );
+const isDev = window.location.search.includes( "dev" );
 
 const RootComponent =
   isDev ? App : Bridge;

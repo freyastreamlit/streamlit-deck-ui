@@ -1,4 +1,5 @@
 .deck-slider-shell {
+
   background:
     linear-gradient(
       180deg,
@@ -16,21 +17,37 @@
     inset 0 -1px 1px rgba(255,255,255,0.02);
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 }
 
 .deck-slider-shell.vertical {
-  width: 64px;
+
+  width: 84px;
   height: 240px;
 }
 
 .deck-slider-shell.horizontal {
+
   width: 240px;
-  height: 64px;
+  height: 92px;
+
+  flex-direction: column;
 }
 
 .deck-slider {
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.deck-slider-main {
+
   position: relative;
 
   display: flex;
@@ -40,6 +57,7 @@
 }
 
 .deck-slider-rail {
+
   position: relative;
 
   border-radius: 999px;
@@ -62,16 +80,19 @@
 }
 
 .deck-slider-rail.vertical {
+
   width: 10px;
   height: 180px;
 }
 
 .deck-slider-rail.horizontal {
+
   width: 180px;
   height: 10px;
 }
 
 .deck-slider-center-marker {
+
   position: absolute;
 
   background:
@@ -84,6 +105,7 @@
 
 .vertical
   .deck-slider-center-marker {
+
   left: 50%;
   top: 50%;
 
@@ -96,6 +118,7 @@
 
 .horizontal
   .deck-slider-center-marker {
+
   top: 50%;
   left: 50%;
 
@@ -107,6 +130,7 @@
 }
 
 .deck-slider-thumb {
+
   position: absolute;
 
   width: 34px;
@@ -126,14 +150,18 @@
   pointer-events: none;
 }
 
-.vertical .deck-slider-thumb {
+.vertical
+  .deck-slider-thumb {
+
   left: 50%;
 
   margin-left: -17px;
   margin-top: -8px;
 }
 
-.horizontal .deck-slider-thumb {
+.horizontal
+  .deck-slider-thumb {
+
   top: 50%;
 
   margin-left: -17px;
@@ -141,6 +169,7 @@
 }
 
 .deck-slider-value {
+
   margin-top: 18px;
 
   width: 52px;
@@ -160,4 +189,41 @@
 
 .horizontal .deck-slider-value {
   margin-top: 10px;
+}
+
+.deck-slider-label {
+
+  color:
+    rgba(235,235,235,0.58);
+
+  font-size: 11px;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.20em;
+
+  user-select: none;
+}
+
+.deck-slider-label.horizontal {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.deck-slider-label.vertical {
+
+  position: absolute;
+
+  left: -45px;
+  top: 50%;
+
+  transform:
+    translateY(-50%)
+    rotate(-90deg);
+
+  transform-origin: center;
+
+  white-space: nowrap;
 }

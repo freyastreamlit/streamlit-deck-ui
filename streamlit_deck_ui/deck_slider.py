@@ -13,17 +13,18 @@ def deck_slider(
     value: float = 0.0,
     min_value: float = -1.0,
     max_value: float = 1.0,
+    label: str = "SLIDER",
+    orientation: str = "horizontal",
     key: Optional[str] = None,
 ):
+
     return _component_func(
         component="deck_slider",
-
         value=value,
-
         min_value=min_value,
         max_value=max_value,
-
+        label=label,
+        orientation=orientation,
         key=key,
-
         default=value,
     )
