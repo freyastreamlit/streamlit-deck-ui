@@ -1,0 +1,162 @@
+.deck-buttons-shell {
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+
+  border-radius: 18px;
+
+  border:
+    1px solid rgba(255,255,255,0.025);
+
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.42),
+    inset 0 -1px 1px rgba(255,255,255,0.02);
+}
+
+.deck-buttons-row {
+
+  display: flex;
+
+  flex-direction: row;
+
+  gap: 10px;
+
+  flex-wrap: nowrap;
+}
+
+.deck-button {
+
+  appearance: none;
+
+  border: none;
+
+  background: none;
+
+  padding: 0;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  transition: none;
+}
+
+.deck-button-inner {
+
+  min-width: 54px;
+
+  padding:
+    8px 12px 7px 12px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  border-radius: 6px;
+
+  border:
+    1px solid rgba(255,255,255,0.04);
+
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.45),
+    inset 0 -1px 1px rgba(255,255,255,0.015);
+
+  transform:
+    translateY(0);
+
+  box-sizing: border-box;
+}
+
+.deck-button.active
+  .deck-button-inner {
+
+  border:
+    2px solid rgba(235,235,235,0.52);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.04),
+    0 1px 2px rgba(0,0,0,0.32);
+
+  transform:
+    translateY(1px);
+}
+
+.deck-button.inactive
+  .deck-button-inner {
+
+  border:
+    1px solid rgba(255,255,255,0.04);
+}
+
+.deck-button-indicator {
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 999px;
+
+  border:
+    1px solid rgba(235,235,235,0.28);
+
+  position: relative;
+
+  box-sizing: border-box;
+}
+
+.deck-button.active
+  .deck-button-indicator {
+
+  border:
+    2px solid rgba(235,235,235,0.82);
+}
+
+.deck-button.active
+  .deck-button-indicator::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 2px;
+
+  border-radius: 999px;
+
+  border:
+    2px solid rgba(235,235,235,0.82);
+}
+
+.deck-button-label {
+
+  font-size: 10px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color:
+    rgba(235,235,235,0.52);
+
+  text-align: center;
+
+  white-space: nowrap;
+
+  line-height: 1;
+}
+
+.deck-button.active
+  .deck-button-label {
+
+  color:
+    rgba(235,235,235,0.88);
+}

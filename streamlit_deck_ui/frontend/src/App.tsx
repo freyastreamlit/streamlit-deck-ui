@@ -1,10 +1,21 @@
 import { useState } from "react";
 
-import { DeckSlider } from "./components/DeckSlider/DeckSlider";
+import { DeckButtons } from "./components/DeckButtons/DeckButtons";
 
 export default function App() {
 
-  const [value, setValue] = useState(0);
+  const [buttons, setButtons] = useState<Record<string, boolean>>({
+
+      MASTER: true,
+      RAW2: false,
+      IQR2: false,
+      RG4: false,
+      TM1: true,
+      LB2R2: false,
+      TK600: false,
+      IMB50: true,
+      EXC25: false,
+    });
 
   return (
     <div
@@ -18,15 +29,12 @@ export default function App() {
       }}
     >
 
-      <DeckSlider
-        value={value}
-        min={-1}
-        max={1}
-        step={0.5}
-        label="APP SLIDER"
-        orientation="vertical"
-        // orientation="horizontal"
-        onChange={setValue}
+      <DeckButtons
+        labels={["MASTER","RAW2","IQR2","RG4","TM1","LB2R2","TK600","IMB50","EXC25"]}
+
+        value={buttons}
+
+        onChange={setButtons}
       />
 
     </div>

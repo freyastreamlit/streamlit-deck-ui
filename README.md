@@ -1,6 +1,6 @@
 # streamlit-deck-ui
 
-Set of UI web-components to integrate within Streamlit dark theme focusing on
+Set of UI web-components to integrate within Streamlit dark theme with high-resilience UI primitives
 
 Strong
 
@@ -30,10 +30,10 @@ Very close to:
 And honestly much better for long Streamlit sessions.
 
 
-knobs
-VU meters
-EQs
-XY pads
-transport controls
-waveform displays
-mixer strips
+By removing backgrounds entirely:
+
+- the component survives aggressive CSS overrides
+- geometry becomes primary
+- silhouette remains strong
+- state remains deterministic
+
