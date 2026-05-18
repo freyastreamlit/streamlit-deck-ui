@@ -43,34 +43,25 @@ function DeckSliderBridge({ args }: { args: any; }) {
   return (
     <DeckSlider
       value={args.value ?? 0}
-
       min={args.min ?? -1}
       max={args.max ?? 1}
-
       step={args.step ?? 0}
-
       label={args.label ?? "SLIDER"}
-
       orientation={ args.orientation ?? "horizontal" }
-
       onChange={(v) => { Streamlit.setComponentValue(v); }}
     />
   );
 }
+
 
 function DeckButtonsBridge({ args }: { args: any; }) {
 
   return (
     <DeckButtons
       labels={args.labels ?? []}
-
       value={args.value ?? {}}
-
-      onChange={(v) => {
-
-        Streamlit.setComponentValue(v);
-
-      }}
+      mode={args.mode ?? "multi"}
+      onChange={(v) => { Streamlit.setComponentValue(v); }}
     />
   );
 }

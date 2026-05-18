@@ -29,16 +29,12 @@ export function DeckSlider({ value, min=-1, max=1, step=0, label, orientation="v
 
     let relative = 0;
 
-    if (orientation === "vertical") {
-      relative = (clientY - rect.top) / rect.height;
-    } else {
-      relative = (clientX - rect.left) / rect.width;
-    }
+    if (orientation === "vertical") { relative = (clientY - rect.top) / rect.height }
+    else { relative = (clientX - rect.left) / rect.width }
 
-  let mapped =
-    orientation === "vertical"
-      ? max - relative * (max - min)
-      : min + relative * (max - min);
+  let mapped = orientation === "vertical"
+              ? max - relative * (max - min)
+              : min + relative * (max - min);
 
   if (step > 0) {
     mapped = Math.round(mapped / step) * step;

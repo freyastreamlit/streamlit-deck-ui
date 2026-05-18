@@ -2,51 +2,35 @@ import { useEffect, useState } from "react";
 
 import "./DeckButtons.css";
 
+type DeckButtonsMode = | "multi" | "radio";
+
 type DeckButtonsProps = {
-
   labels: string[];
-
   value?: Record<string, boolean>;
-
+  mode?: DeckButtonsMode;
   onChange?: ( value: Record<string, boolean> ) => void;
 };
 
-export function DeckButtons({
-  labels,
+export function DeckButtons({ labels, value = {}, mode = "multi", onChange }: DeckButtonsProps) {
 
-  value = {},
-
-  onChange,
-}: DeckButtonsProps) {
-
-  const [state, setState] =
-    useState<Record<string, boolean>>({});
+  const [state, setState] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
 
-    const initialState:
-      Record<string, boolean> = {};
+    const initialState: Record<string, boolean> = {};
 
-    labels.forEach((label) => {
-
-      initialState[label] =
-        value[label] ?? false;
-    });
+    labels.forEach((label) => { initialState[label] = value[label] ?? false });
 
     setState(initialState);
 
   }, [labels, value]);
 
-  function toggleButton(
-    label: string
-  ) {
+  function toggleButton( label: string ) {
 
-    const nextState = {
-      ...state,
+    let nextState: Record<string, boolean> = {};
 
-      [label]:
-        !state[label],
-    };
+    if (mode === "radio") { labels.forEach( (item) => { nextState[item] = item === label } ) }
+    else { nextState = { ...state, [label]: !state[label] } }
 
     setState(nextState);
 
@@ -60,39 +44,25 @@ export function DeckButtons({
 
         {labels.map((label) => {
 
-          const active =
-            state[label];
+          const active = state[label];
 
           return (
+
             <button
               key={label}
-
               type="button"
-
-              className={
-                `deck-button ${
-                  active
-                    ? "active"
-                    : "inactive"
-                }`
-              }
-
-              onClick={() =>
-                toggleButton(label)
-              }
+              className={ `deck-button ${ active ? "active" : "inactive" }` }
+              onClick={() => toggleButton(label) }
             >
 
               <div className="deck-button-inner">
 
-                <div className="deck-button-indicator" />
-
-                <div className="deck-button-label">
-                  {label}
-                </div>
+                <div className="deck-button-label"> {label} </div>
 
               </div>
 
             </button>
+
           );
         })}
 
@@ -101,4 +71,3 @@ export function DeckButtons({
     </div>
   );
 }
-

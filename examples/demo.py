@@ -40,7 +40,9 @@ st.divider()
 
 
 buttons_value = deck_buttons(
-    labels=["MASTER","RAW2","IQR2","RG4","TM1","LB2R2","TK600","IMB50","EXC25" ],
+    labels=["MASTER","RAW2","IQR2","RG4","TM1","LB2R2","TK600" ],
+    # mode='radio',
+    mode='multi',
     key="deck_buttons",
 )
 

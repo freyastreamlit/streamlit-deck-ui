@@ -61,16 +61,18 @@ def deck_slider(
 def deck_buttons(
     labels: list[str],
     value: dict[str, bool] | None = None,
+    mode: str = "multi",
     key: Optional[str] = None,
 ):
-
     DEFAULT_VALUES = { label:False for label in labels }
-    synced_value = _sync_session_value(key,value or DEFAULT_VALUES)
+
+    synced_value = _sync_session_value( key, value or DEFAULT_VALUES )
 
     return _component_func(
         component="deck_buttons",
         labels=labels,
         value=synced_value,
+        mode=mode,
         key=key,
         default=synced_value,
     )
