@@ -1,10 +1,11 @@
 from pathlib import Path
 from typing import Optional
 
+import streamlit as st
 import streamlit.components.v1 as components
 
 
-_RELEASE = True
+_RELEASE = False
 
 
 if not _RELEASE:
@@ -21,27 +22,40 @@ else:
     _component_func = components.declare_component( "streamlit_deck_ui", path=str(build_dir) )
 
 
+# Helper to synchronise st.session_state[key] with react state
+def _sync_session_value( key: Optional[str], value ):
+
+    if key is None:
+        return value
+
+    if key not in st.session_state:
+        st.session_state[key] = value
+
+    return st.session_state[key]
+
 
 def deck_slider(
     value: float = 0.0,
-    min_value: float = -1.0,
-    max_value: float = 1.0,
+    min: float = -1.0,
+    max: float = 1.0,
     step: float = 0.0,
     label: str = "SLIDER",
     orientation: str = "horizontal",
     key: Optional[str] = None,
 ):
 
+    synced_value = _sync_session_value(key,value)
+
     return _component_func(
         component="deck_slider",
-        value=value,
-        min_value=min_value,
-        max_value=max_value,
+        value=synced_value,
+        min=min,
+        max=max,
         step=step,
         label=label,
         orientation=orientation,
         key=key,
-        default=value,
+        default=synced_value,
     )
 
 def deck_buttons(
@@ -50,10 +64,13 @@ def deck_buttons(
     key: Optional[str] = None,
 ):
 
+    DEFAULT_VALUES = { label:False for label in labels }
+    synced_value = _sync_session_value(key,value or DEFAULT_VALUES)
+
     return _component_func(
         component="deck_buttons",
         labels=labels,
-        value=value or {},
+        value=synced_value,
         key=key,
-        default=value or {},
+        default=synced_value,
     )

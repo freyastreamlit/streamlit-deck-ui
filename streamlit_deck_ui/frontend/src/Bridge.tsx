@@ -44,8 +44,8 @@ function DeckSliderBridge({ args }: { args: any; }) {
     <DeckSlider
       value={args.value ?? 0}
 
-      min={args.min_value ?? -1}
-      max={args.max_value ?? 1}
+      min={args.min ?? -1}
+      max={args.max ?? 1}
 
       step={args.step ?? 0}
 

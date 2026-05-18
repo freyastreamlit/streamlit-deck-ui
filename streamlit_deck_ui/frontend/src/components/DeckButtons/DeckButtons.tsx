@@ -8,9 +8,7 @@ type DeckButtonsProps = {
 
   value?: Record<string, boolean>;
 
-  onChange?: (
-    value: Record<string, boolean>
-  ) => void;
+  onChange?: ( value: Record<string, boolean> ) => void;
 };
 
 export function DeckButtons({
