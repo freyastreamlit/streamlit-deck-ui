@@ -3,15 +3,17 @@ import { useEffect, useState } from "react";
 import "./DeckButtons.css";
 
 type DeckButtonsMode = | "multi" | "radio";
+type DeckButtonsOrientation = | "horizontal" | "vertical";
 
 type DeckButtonsProps = {
   labels: string[];
   value?: Record<string, boolean>;
   mode?: DeckButtonsMode;
+  orientation?: DeckButtonsOrientation;
   onChange?: ( value: Record<string, boolean> ) => void;
 };
 
-export function DeckButtons({ labels, value = {}, mode = "multi", onChange }: DeckButtonsProps) {
+export function DeckButtons({ labels, value = {}, mode = "multi", orientation = "horizontal",onChange }: DeckButtonsProps) {
 
   const [state, setState] = useState<Record<string, boolean>>({});
 
@@ -40,7 +42,7 @@ export function DeckButtons({ labels, value = {}, mode = "multi", onChange }: De
   return (
     <div className="deck-buttons-shell">
 
-      <div className="deck-buttons-row">
+      <div className={`deck-buttons-row ${orientation}`}>
 
         {labels.map((label) => {
 

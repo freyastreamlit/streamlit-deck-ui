@@ -61,6 +61,7 @@ function DeckButtonsBridge({ args }: { args: any; }) {
       labels={args.labels ?? []}
       value={args.value ?? {}}
       mode={args.mode ?? "multi"}
+      orientation={ args.orientation ?? "horizontal" }
       onChange={(v) => { Streamlit.setComponentValue(v); }}
     />
   );

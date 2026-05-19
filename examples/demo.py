@@ -43,6 +43,8 @@ buttons_value = deck_buttons(
     labels=["MASTER","RAW2","IQR2","RG4","TM1","LB2R2","TK600" ],
     # mode='radio',
     mode='multi',
+    # orientation='horizontal',
+    orientation='vertical',
     key="deck_buttons",
 )
 

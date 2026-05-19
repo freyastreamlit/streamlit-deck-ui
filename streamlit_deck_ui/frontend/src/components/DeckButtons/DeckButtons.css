@@ -16,9 +16,17 @@
 
 .deck-buttons-row {
   display: flex;
-  flex-direction: row;
   gap: 10px;
   flex-wrap: nowrap;
+}
+
+.deck-buttons-row.horizontal {
+  flex-direction: row;
+}
+
+.deck-buttons-row.vertical {
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .deck-button {
