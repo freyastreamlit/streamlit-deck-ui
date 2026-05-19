@@ -33,8 +33,9 @@ export default function App() {
         labels={["MASTER","RAW2","IQR2","RG4","TM1","LB2R2","TK600","IMB50","EXC25"]}
 
         value={buttons}
-        mode='radio'
+        mode='checkbox'
         orientation='vertical'
+        fontSize={10}
 
         onChange={setButtons}
       />

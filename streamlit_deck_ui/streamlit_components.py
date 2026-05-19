@@ -61,8 +61,9 @@ def deck_slider(
 def deck_buttons(
     labels: list[str],
     value: dict[str, bool] | None = None,
-    mode: str = "multi",
+    mode: str = "checkbox",
     orientation: str = "horizontal",
+    fontSize: int = 14,
     key: Optional[str] = None,
 ):
 
@@ -75,6 +76,7 @@ def deck_buttons(
         value=synced_value,
         mode=mode,
         orientation=orientation,
+        fontSize=fontSize,
         key=key,
         default=synced_value,
     )

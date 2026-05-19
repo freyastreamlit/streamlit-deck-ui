@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import "./DeckButtons.css";
 
-type DeckButtonsMode = | "multi" | "radio";
+type DeckButtonsMode = | "checkbox" | "radio";
 type DeckButtonsOrientation = | "horizontal" | "vertical";
 
 type DeckButtonsProps = {
@@ -10,10 +10,11 @@ type DeckButtonsProps = {
   value?: Record<string, boolean>;
   mode?: DeckButtonsMode;
   orientation?: DeckButtonsOrientation;
+  fontSize?: number;
   onChange?: ( value: Record<string, boolean> ) => void;
 };
 
-export function DeckButtons({ labels, value = {}, mode = "multi", orientation = "horizontal",onChange }: DeckButtonsProps) {
+export function DeckButtons({ labels, value = {}, mode = "checkbox", orientation = "horizontal", fontSize = 14, onChange }: DeckButtonsProps) {
 
   const [state, setState] = useState<Record<string, boolean>>({});
 
@@ -32,7 +33,7 @@ export function DeckButtons({ labels, value = {}, mode = "multi", orientation = 
     let nextState: Record<string, boolean> = {};
 
     if (mode === "radio") { labels.forEach( (item) => { nextState[item] = item === label } ) }
-    else { nextState = { ...state, [label]: !state[label] } }
+    else { nextState = { ...state, [label]: !state[label] } } // toggle the clicked button
 
     setState(nextState);
 
@@ -59,7 +60,7 @@ export function DeckButtons({ labels, value = {}, mode = "multi", orientation = 
 
               <div className="deck-button-inner">
 
-                <div className="deck-button-label"> {label} </div>
+                <div className="deck-button-label" style={{ fontSize: `${fontSize}px` }}> {label} </div>
 
               </div>
 

@@ -60,8 +60,9 @@ function DeckButtonsBridge({ args }: { args: any; }) {
     <DeckButtons
       labels={args.labels ?? []}
       value={args.value ?? {}}
-      mode={args.mode ?? "multi"}
+      mode={args.mode ?? "checkbox"}
       orientation={ args.orientation ?? "horizontal" }
+      fontSize={args.fontSize ?? 14}
       onChange={(v) => { Streamlit.setComponentValue(v); }}
     />
   );
