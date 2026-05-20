@@ -68,6 +68,7 @@ def deck_buttons(
 ):
 
     DEFAULT_VALUES = { label:False for label in labels }
+    DEFAULT_VALUES[ labels[0] ] = True  # Default to first button selected for radios
     synced_value = _sync_session_value( key, value or DEFAULT_VALUES )
 
     return _component_func(
