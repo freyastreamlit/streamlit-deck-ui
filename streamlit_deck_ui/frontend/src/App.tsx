@@ -25,9 +25,11 @@ export default function App() {
         step={0.05}
         label="APP SLIDER"
         length={220}
-        thickness={14}
+        thickness={12}
+        shell={false}
+        padding={30}
         orientation="horizontal"
-        // orientation="horizontal"
+        // orientation="vertical"
         onChange={setValue}
       />
 

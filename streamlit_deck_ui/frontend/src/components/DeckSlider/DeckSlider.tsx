@@ -14,6 +14,9 @@ type DeckSliderProps = {
   length?: number;
   thickness?: number;
 
+  shell?: boolean;
+  padding?: number;
+
   orientation?: | "vertical" | "horizontal";
 
   onChange?: ( value: number ) => void;
@@ -21,7 +24,9 @@ type DeckSliderProps = {
 };
 
 
-export function DeckSlider({ value, min=-1, max=1, step=1, label, length = 180, thickness = 10, orientation="vertical", onChange }: DeckSliderProps) {
+export function DeckSlider({ value, min=-1, max=1, step=1, label, 
+                             length = 180, thickness = 10, shell = true, padding = 16,
+                             orientation="vertical", onChange }: DeckSliderProps) {
 
   const railRef = useRef<HTMLDivElement>(null);
 
@@ -70,26 +75,23 @@ export function DeckSlider({ value, min=-1, max=1, step=1, label, length = 180, 
     window.addEventListener( "pointerup", handleUp );
   }
 
-  const normalized =
-    orientation === "vertical" ? (max - value) / (max - min) : (value - min) / (max - min);
+  const normalized = orientation === "vertical" ? (max - value) / (max - min) : (value - min) / (max - min);
 
   const isVertical = orientation === "vertical";
 
-  return (
-    <div className={`deck-slider-shell ${orientation}`} >
+  const shellStyle = { padding: `${padding}px`};
 
-      {label &&
-        orientation === "horizontal" && (
-          <div className="deck-slider-label horizontal">
-            {label}
-          </div>
-        )}
+
+  return (
+    <div
+      className={ shell ? `deck-slider-shell ${orientation}` : `deck-slider-shell-none ${orientation}` }
+      style={shell ? shellStyle : undefined}
+    >
 
       <div className={`deck-slider ${orientation}`} >
 
-        {label &&
-          orientation === "vertical" && (
-            <div className="deck-slider-label vertical">
+          {label && (
+            <div className={`deck-slider-label ${orientation}`}>
               {label}
             </div>
           )}
