@@ -11,13 +11,17 @@ type DeckSliderProps = {
   step?: number;
   label?: string;
 
+  length?: number;
+  thickness?: number;
+
   orientation?: | "vertical" | "horizontal";
 
   onChange?: ( value: number ) => void;
 
 };
 
-export function DeckSlider({ value, min=-1, max=1, step=0, label, orientation="vertical", onChange }: DeckSliderProps) {
+
+export function DeckSlider({ value, min=-1, max=1, step=1, label, length = 180, thickness = 10, orientation="vertical", onChange }: DeckSliderProps) {
 
   const railRef = useRef<HTMLDivElement>(null);
 
@@ -32,16 +36,21 @@ export function DeckSlider({ value, min=-1, max=1, step=0, label, orientation="v
     if (orientation === "vertical") { relative = (clientY - rect.top) / rect.height }
     else { relative = (clientX - rect.left) / rect.width }
 
-  let mapped = orientation === "vertical"
-              ? max - relative * (max - min)
-              : min + relative * (max - min);
+    let mapped = orientation === "vertical"
+                ? max - relative * (max - min)
+                : min + relative * (max - min);
 
-  if (step > 0) {
-    mapped = Math.round(mapped / step) * step;
-    mapped = Math.max( min, Math.min(max, mapped) );
+    if (step > 0) {
+      mapped = Math.round(mapped / step) * step;
+      mapped = Math.max( min, Math.min(max, mapped) );
+    }
+
+    onChange?.(mapped);
   }
 
-  onChange?.(mapped);
+  function formatValue(v: number) {
+    const hasDecimals = !Number.isInteger(step);
+    return hasDecimals ? v.toFixed(2) : v.toFixed(0);
   }
 
   function handlePointerDown( e: React.PointerEvent<HTMLDivElement> ) {
@@ -62,11 +71,7 @@ export function DeckSlider({ value, min=-1, max=1, step=0, label, orientation="v
   }
 
   const normalized =
-    orientation === "vertical"
-      ? (max - value) /
-        (max - min)
-      : (value - min) /
-        (max - min);
+    orientation === "vertical" ? (max - value) / (max - min) : (value - min) / (max - min);
 
   const isVertical = orientation === "vertical";
 
@@ -94,29 +99,26 @@ export function DeckSlider({ value, min=-1, max=1, step=0, label, orientation="v
           <div
             ref={railRef}
             className={`deck-slider-rail ${orientation}`}
+            style={ isVertical
+                    ? { height: `${length}px`, width: `${thickness}px` }
+                    : { width: `${length}px`, height: `${thickness}px` } }
             onPointerDown={handlePointerDown}
           >
+
+            <div className={`deck-slider-min ${orientation}`}> {formatValue(min)} </div>
+
+            <div className={`deck-slider-max ${orientation}`}> {formatValue(max)} </div>
 
             <div className="deck-slider-center-marker" />
 
             <div
               className="deck-slider-thumb"
-              style={
-                isVertical
-                  ? {
-                      top:
-                        `${normalized * 100}%`
-                    }
-                  : {
-                      left:
-                        `${normalized * 100}%`
-                    }
-              }
+              style={ isVertical ? { top: `${normalized * 100}%` } : { left: `${normalized * 100}%` } }
             />
 
           </div>
 
-          <div className="deck-slider-value"> {value.toFixed(2)} </div>
+          <div className="deck-slider-value"> {formatValue(value)} </div>
 
         </div>
 

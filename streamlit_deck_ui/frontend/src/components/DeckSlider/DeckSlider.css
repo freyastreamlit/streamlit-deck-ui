@@ -79,24 +79,11 @@
   cursor: pointer;
 }
 
-.deck-slider-rail.vertical {
-
-  width: 10px;
-  height: 180px;
-}
-
-.deck-slider-rail.horizontal {
-
-  width: 180px;
-  height: 10px;
-}
-
 .deck-slider-center-marker {
 
   position: absolute;
 
-  background:
-    rgba(235,235,235,0.22);
+  background: rgba(235,235,235,0.22);
 
   border-radius: 999px;
 
@@ -112,8 +99,7 @@
   width: 22px;
   height: 1px;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .horizontal
@@ -125,8 +111,7 @@
   width: 1px;
   height: 22px;
 
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .deck-slider-thumb {
@@ -138,14 +123,11 @@
 
   border-radius: 1px;
 
-  background-color:
-    rgb(120,120,120);
+  background-color: rgb(120,120,120);
 
-  border:
-    1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
 
-  box-shadow:
-    0 2px 4px rgba(0,0,0,0.24);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.24);
 
   pointer-events: none;
 }
@@ -180,21 +162,16 @@
 
   letter-spacing: 0.04em;
 
-  color:
-    rgba(235,235,235,0.52);
+  color: rgba(235,235,235,0.52);
 
-  font-variant-numeric:
-    tabular-nums;
+  font-variant-numeric: tabular-nums;
 }
 
-.horizontal .deck-slider-value {
-  margin-top: 10px;
-}
+.horizontal .deck-slider-value { margin-top: 10px; }
 
 .deck-slider-label {
 
-  color:
-    rgba(235,235,235,0.58);
+  color: rgba(235,235,235,0.58);
 
   font-size: 11px;
 
@@ -219,11 +196,33 @@
   left: -42px;
   top: 50%;
 
-  transform:
-    translateY(-50%)
-    rotate(-90deg);
+  transform: translateY(-50%) rotate(-90deg);
 
   transform-origin: center;
 
   white-space: nowrap;
 }
+
+.deck-slider-min,
+.deck-slider-max {
+
+  position: absolute;
+
+  font-size: 10px;
+
+  color: rgba(235,235,235,0.32);
+
+  font-variant-numeric: tabular-nums;
+
+  user-select: none;
+
+  pointer-events: none;
+}
+
+.deck-slider-min.horizontal { top: -18px; left: 0; }
+
+.deck-slider-max.horizontal { top: -18px; right: 0; }
+
+.deck-slider-min.vertical { right: -30px; bottom: -4px; }
+
+.deck-slider-max.vertical { right: -30px; top: -4px; }
