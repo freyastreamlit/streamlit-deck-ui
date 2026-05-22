@@ -28,9 +28,7 @@ slider_value = deck_slider(
     key="deck_slider",
 )
 
-st.write( "deck_slider:",
-    st.session_state.deck_slider
-)
+st.write( slider_value, st.session_state.deck_slider )
 
 st.divider()
 
@@ -41,15 +39,16 @@ st.divider()
 
 buttons_value = deck_buttons(
     labels=["MASTER","RAW2","IQR2","RG4","TM1","LB2R2","TK600" ],
-    # mode='radio',
-    mode='checkbox',
-    # orientation='horizontal',
-    orientation='vertical',
+    # options={ "AS (120)": 1, "EU (80)": 2, "US (91)": 4 },
+    mode='radio',
+    # mode='checkbox',
+    orientation='horizontal',
+    # orientation='vertical',
     fontSize=12,
     key="deck_buttons",
 )
 
-st.write( st.session_state.deck_buttons )
+st.write( buttons_value, st.session_state.deck_buttons )
 
 
 
