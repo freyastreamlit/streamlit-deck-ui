@@ -44,7 +44,9 @@ buttons_value = deck_buttons(
     # mode='checkbox',
     orientation='horizontal',
     # orientation='vertical',
+    title='BARS',
     fontSize=12,
+    shell=False,
     key="deck_buttons",
 )
 

@@ -1,5 +1,20 @@
 
 
+  /* Optional accessibility cue
+  .stTabs button[data-baseweb="tab"][aria-selected="true"]::before {
+      content: "▶ ";
+  } */
+
+  /* Active tab text
+  .stTabs button[data-baseweb="tab"][aria-selected="true"] p,
+  .stTabs button[data-baseweb="tab"][aria-selected="true"] div {
+      font-weight: 800 !important;
+      text-shadow:
+          0.25px 0 0 currentColor,
+          -0.25px 0 0 currentColor;
+  } */
+
+
 .deck-buttons-shell {
 
   display: flex;
@@ -12,6 +27,14 @@
   box-shadow:
     inset 0 2px 6px rgba(0,0,0,0.42),
     inset 0 -1px 1px rgba(255,255,255,0.02);
+}
+
+.deck-buttons-shell-none {
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 }
 
 .deck-buttons-row {

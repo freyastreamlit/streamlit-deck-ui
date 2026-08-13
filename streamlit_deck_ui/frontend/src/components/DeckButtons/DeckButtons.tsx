@@ -11,10 +11,21 @@ type DeckButtonsProps = {
   mode?: DeckButtonsMode;
   orientation?: DeckButtonsOrientation;
   fontSize?: number;
+  shell?: boolean;
+  padding?: number;
   onChange?: ( value: Record<string, boolean> ) => void;
 };
 
-export function DeckButtons({ labels, value = {}, mode = "checkbox", orientation = "horizontal", fontSize = 14, onChange }: DeckButtonsProps) {
+export function DeckButtons({
+      labels,
+      value = {},
+      mode = "checkbox",
+      orientation = "horizontal",
+      fontSize = 14,
+      shell = true,
+      padding = 12,
+      onChange,
+    }: DeckButtonsProps) {
 
   const [state, setState] = useState<Record<string, boolean>>({});
 
@@ -41,7 +52,9 @@ export function DeckButtons({ labels, value = {}, mode = "checkbox", orientation
   }
 
   return (
-    <div className="deck-buttons-shell">
+    <div
+      className={ shell ? "deck-buttons-shell" : "deck-buttons-shell-none" }
+      style={ shell ? { padding: `${padding}px` } : undefined } >
 
       <div className={`deck-buttons-row ${orientation}`}>
 

@@ -110,9 +110,12 @@ def deck_buttons(
     labels: list[str] | None = None,
     options: dict[str, str | int | float] | None = None,
     value: dict[str, bool] | None = None,
+    title: str | None = None,
     mode: str = "checkbox",
     orientation: str = "horizontal",
     fontSize: int = 14,
+    shell: bool = True,
+    padding: int = 12,
     key: Optional[str] = None,
 ):
     """
@@ -137,6 +140,8 @@ def deck_buttons(
 
     value: Initial internal toggle state.
 
+    title: Optional title on top as st.markdown(f"##### {title}")
+
     mode
         "checkbox" -> multiple selections (returns list)
         "radio"    -> single selection (returns single value)
@@ -153,77 +158,24 @@ def deck_buttons(
 
     radio mode: selected value
     """
-def deck_buttons(
-    labels: list[str] | None = None,
-    options: dict[str, str | int | float] | None = None,
-    value: dict[str, bool] | None = None,
-    mode: str = "checkbox",
-    orientation: str = "horizontal",
-    fontSize: int = 14,
-    key: Optional[str] = None,
-):
-    """
-    Deck UI toggle button group.
-
-    Parameters
-    ----------
-    labels
-        Simple list of labels. Returned values are the labels themselves.
-
-    options
-        Mapping of display-label -> semantic value.
-        Preferred for filters and selectors.
-
-        Example:
-            {
-                "AS (120)": 1,
-                "EU (80)": 2,
-                "US (91)": 4
-            }
-
-    value
-        Initial internal toggle state.
-
-    mode
-        "checkbox" -> multiple selections (returns list)
-        "radio"    -> single selection (returns single value)
-
-    orientation
-        "horizontal" or "vertical"
-
-    fontSize
-        Button label font size.
-
-    key
-        Standard Streamlit component key.
-
-    Returns
-    -------
-    checkbox mode:
-        list of selected values
-
-    radio mode:
-        selected value
-    """
 
     # OPTIONS
     # ==================================================
 
-    if options is not None:
-
-        labels = list(options.keys())
-
-    else:
-
-        options = { label: label for label in labels }
+    if options is not None: labels = list(options.keys())
+    else: options = { label: label for label in labels }
 
     # DEFAULT RAW STATE
     # ==================================================
 
     DEFAULT_VALUES = { label: False for label in labels }
 
-    if labels:
+    if mode == "radio" and labels:
         DEFAULT_VALUES[labels[0]] = True
+
+    elif mode == "checkbox":
+        DEFAULT_VALUES = { label: True for label in labels }
+
 
     # INTERNAL RAW STATE KEY
     # ==================================================
@@ -234,6 +186,8 @@ def deck_buttons(
 
     # COMPONENT
     # ==================================================
+    if title:
+        st.markdown(f"##### {title}")
 
     raw = _component_func(
         component="deck_buttons",
@@ -242,6 +196,8 @@ def deck_buttons(
         mode=mode,
         orientation=orientation,
         fontSize=fontSize,
+        shell=shell,
+        padding=padding,
         key=raw_key,
         default=synced_value,
     )
@@ -272,3 +228,40 @@ def deck_buttons(
         st.session_state[key] = result
 
     return result
+
+
+def deck_toggle(
+    label: str = "TOGGLE",
+    value: bool = False,
+    title: str | None = None,
+    fontSize: int = 14,
+    shell: bool = True,
+    padding: int = 12,
+    key: Optional[str] = None,
+):
+    """
+    Deck UI boolean toggle using a single deck_buttons button.
+
+    Returns
+    -------
+    bool
+        True when active, False when inactive.
+    """
+
+    raw_value = {
+        label: value,
+    }
+
+    result = deck_buttons(
+        labels=[label],
+        value=raw_value,
+        title=title,
+        mode="checkbox",
+        orientation="horizontal",
+        fontSize=fontSize,
+        shell=shell,
+        padding=padding,
+        key=key,
+    )
+
+    return label in result

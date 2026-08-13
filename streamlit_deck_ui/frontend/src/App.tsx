@@ -34,8 +34,9 @@ export default function App() {
 
         value={buttons}
         mode='checkbox'
-        orientation='vertical'
+        orientation='horizontal'
         fontSize={10}
+        // shell={false}
 
         onChange={setButtons}
       />
