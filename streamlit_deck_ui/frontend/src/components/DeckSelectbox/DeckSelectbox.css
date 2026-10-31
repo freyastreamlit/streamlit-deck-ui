@@ -1,0 +1,80 @@
+
+.deck-selectbox {
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  border-radius: 10px;
+  color: #ebebeb;
+}
+
+.deck-selectbox.shell {
+  border: 1px solid rgba(235, 235, 235, 0.65);
+  background: transparent;
+}
+
+.deck-selectbox-label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.deck-selectbox-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 42px;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.deck-selectbox-value {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.deck-selectbox-arrow {
+  font-size: 22px;
+  opacity: 0.75;
+}
+
+.deck-selectbox-menu {
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 5px;
+  border: 1px solid rgba(235,235,235,0.35);
+  border-radius: 8px;
+  background: #202020;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.deck-selectbox-option {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: #ebebeb;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.deck-selectbox-option:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+.deck-selectbox-option.active {
+  background: rgba(255,255,255,0.16);
+  font-weight: 700;
+}

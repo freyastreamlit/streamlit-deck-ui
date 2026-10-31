@@ -1,46 +1,32 @@
 import { useState } from "react";
-
 import { DeckButtons } from "./components/DeckButtons/DeckButtons";
+import { DeckSelectbox } from "./components/DeckSelectbox/DeckSelectbox";
+
+const bars = ["MASTER", "RAW2", "IQR2", "RG4", "TM1", "LB2R2", "TK600"];
 
 export default function App() {
-
-  const [buttons, setButtons] = useState<Record<string, boolean>>({
-
-      MASTER: true,
-      RAW2: false,
-      IQR2: false,
-      RG4: false,
-      TM1: true,
-      LB2R2: false,
-      TK600: false,
-      IMB50: true,
-      EXC25: false,
-    });
+  const [buttons, setButtons] = useState<Record<string, boolean>>({ MASTER: true, RAW2: false, IQR2: false, RG4: false, TM1: true, LB2R2: false, TK600: false });
+  const [toggle, setToggle] = useState<Record<string, boolean>>({ ENABLED: true });
+  const [overlap, setOverlap] = useState("2");
 
   return (
-    <div
-      style={{
-        background: "#1a1d20",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "Inter, sans-serif",
-      }}
-    >
-
-      <DeckButtons
-        labels={["MASTER","RAW2","IQR2","RG4","TM1","LB2R2","TK600","IMB50","EXC25"]}
-
-        value={buttons}
-        mode='checkbox'
-        orientation='horizontal'
-        fontSize={10}
-        // shell={false}
-
-        onChange={setButtons}
-      />
-
+    <div style={{ background: "#1a1d20", minHeight: "100vh", color: "#ebebeb", padding: 28, boxSizing: "border-box", fontFamily: "Inter, sans-serif" }}>
+      <h2>Deck UI development preview</h2>
+      <section style={{ marginBottom: 28 }}>
+        <h3>Deck buttons</h3>
+        <DeckButtons labels={bars} value={buttons} mode="checkbox" orientation="horizontal" fontSize={12} shell padding={12} onChange={setButtons} />
+        <pre>{JSON.stringify(Object.keys(buttons).filter(k => buttons[k]))}</pre>
+      </section>
+      <section style={{ marginBottom: 28 }}>
+        <h3>Deck toggle (single DeckButtons)</h3>
+        <DeckButtons labels={["ENABLED"]} value={toggle} mode="checkbox" orientation="horizontal" fontSize={14} shell padding={12} onChange={setToggle} />
+        <pre>{String(Boolean(toggle.ENABLED))}</pre>
+      </section>
+      <section>
+        <h3>Deck selectbox</h3>
+        <DeckSelectbox labels={["1", "2", "3", "4", "5"]} value={overlap} label="Minimum metric overlap" width={240} labelFontSize={16} valueFontSize={30} padding={12} shell onChange={setOverlap} />
+        <pre>{overlap}</pre>
+      </section>
     </div>
   );
 }

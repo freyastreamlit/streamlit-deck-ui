@@ -23,12 +23,15 @@ else:
 
 
 # Helper to synchronise st.session_state[key] with react state
-def _sync_session_value( key: Optional[str], value ):
+# st.write("raw_key:", raw_key)
+# st.write("stored:", st.session_state.get(raw_key, "MISSING"))
+# st.write("synced:", synced_value)
+def _sync_session_value(key: Optional[str], value):
 
     if key is None:
         return value
 
-    if key not in st.session_state:
+    if key not in st.session_state or st.session_state[key] is None:
         st.session_state[key] = value
 
     return st.session_state[key]
@@ -265,3 +268,50 @@ def deck_toggle(
     )
 
     return label in result
+
+
+
+import streamlit as st
+
+
+def deck_selectbox(
+    label: str,
+    options,
+    index: int = 0,
+    label_font_size: int = 16,
+    value_font_size: int = 28,
+    border: bool = True,
+    padding: int = 12,
+    width: int = 240,
+    key: Optional[str] = None,
+    format_func=None,
+):
+    """React metric-style selectbox. No explicit session-state access."""
+    options = list(options)
+    if not options:
+        return None
+    if not 0 <= index < len(options):
+        raise ValueError("index out of range")
+
+    formatter = format_func or str
+    labels = [str(formatter(option)) for option in options]
+    if len(set(labels)) != len(labels):
+        raise ValueError("Selectbox labels must be unique")
+
+    default_label = labels[index]
+    selected_label = _component_func(
+        component="deck_selectbox",
+        labels=labels,
+        value=default_label,
+        label=label,
+        width=width,
+        labelFontSize=label_font_size,
+        valueFontSize=value_font_size,
+        padding=padding,
+        shell=border,
+        key=key,
+        default=default_label,
+    )
+    if selected_label not in labels:
+        selected_label = default_label
+    return options[labels.index(selected_label)]

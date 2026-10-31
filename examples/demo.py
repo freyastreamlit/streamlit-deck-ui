@@ -1,126 +1,33 @@
+"""Deck UI interactive demo: streamlit run examples/demo.py"""
 import streamlit as st
+from streamlit_deck_ui import deck_slider, deck_buttons, deck_toggle, deck_selectbox
 
-from streamlit_deck_ui import (
-    deck_slider,
-    deck_buttons,
-)
-
-# pip install -e .
-
-st.set_page_config( layout="centered" )
-
+st.set_page_config(page_title="Deck UI Test", layout="wide")
 st.title("Deck UI Test")
 
-# ==========================================
-# SLIDER
-# ==========================================
-
-if "gain" not in st.session_state:
-    st.session_state.gain = 0.0
-
-slider_value = deck_slider(
-    value=st.session_state.gain,
-    min=-1,
-    max=1,
-    step=0.5,
-    label="DECK SLIDER",
-    orientation="horizontal",
-    key="deck_slider",
-)
-
-st.write( slider_value, st.session_state.deck_slider )
-
+st.subheader("Slider")
+slider_value = deck_slider(value=0.0, min=-1, max=1, step=0.5, label="DECK SLIDER", orientation="horizontal", key="demo_slider")
+st.write("Returned:", slider_value)
 st.divider()
 
-# ==========================================
-# BUTTONS
-# ==========================================
+st.subheader("Buttons — radio")
+radio_value = deck_buttons(labels=["MASTER", "RAW2", "IQR2", "RG4", "TM1"], title="BARS", mode="radio", orientation="horizontal", fontSize=12, shell=True, key="demo_radio")
+st.write("Returned:", radio_value)
 
+st.subheader("Buttons — checkbox")
+checkbox_value = deck_buttons(options={"AS (120)": 1, "EU (80)": 2, "US (91)": 4}, title="SESSIONS", mode="checkbox", orientation="horizontal", fontSize=12, shell=True, key="demo_checkbox")
+st.write("Returned:", checkbox_value)
+st.divider()
 
-buttons_value = deck_buttons(
-    labels=["MASTER","RAW2","IQR2","RG4","TM1","LB2R2","TK600" ],
-    # options={ "AS (120)": 1, "EU (80)": 2, "US (91)": 4 },
-    mode='radio',
-    # mode='checkbox',
-    orientation='horizontal',
-    # orientation='vertical',
-    title='BARS',
-    fontSize=12,
-    shell=False,
-    key="deck_buttons",
-)
+st.subheader("Toggle")
+toggle_value = deck_toggle(label="ENABLED", value=True, title="FEATURE", fontSize=14, shell=True, padding=12, key="demo_toggle")
+st.write("Returned:", toggle_value)
+st.divider()
 
-st.write( buttons_value, st.session_state.deck_buttons )
+st.subheader("Selectbox")
+selected = deck_selectbox(label="Minimum metric overlap", options=range(1, 6), index=1, label_font_size=16, value_font_size=30, border=True, padding=12, width=240, key="demo_selectbox")
+st.write("Returned:", selected, "(type:", type(selected).__name__, ")")
 
-
-
-
-def deck_filter_buttons(label_map, counts=None, key=None, title=None):
-
-    counts = counts or {}
-
-    if title:
-        st.markdown(f"##### {title}")
-
-    labels = { f"{name} ({counts.get(value, 0)})": value for value, name in label_map.items() }
-
-    state = deck_buttons(
-        labels=list(labels.keys()),
-        value={label: True for label in labels},
-        orientation="vertical",
-        mode="multi",
-        key=key
-    )
-
-    return [ labels[label] for label, active in state.items() if active ]
-
-
-def distribution_selector(DF):
-
-    SESSION_MAP = {1: "AS", 2: "EU", 4: "US"}
-    TREND_MAP = {1: "BULL", -1: "BEAR"}
-
-    session_counts = DF["session"].value_counts().to_dict()
-    trend_counts = DF["trend"].value_counts().to_dict()
-
-
-    col1, col2 = st.columns(2)
-
-        # SESSION FILTERS
-    # =======================
-    with col1:
-
-        # selected_sessions  # [1, 2, 4]
-        selected_sessions = deck_filter_buttons(
-            SESSION_MAP,
-            counts=session_counts,
-            key="selected_sessions",
-            title="Sessions"
-        )
-
-    # TREND FILTERS
-    # =======================
-    with col2:
-
-        # selected_trends    # [1, -1]
-        selected_trends = deck_filter_buttons(
-            TREND_MAP,
-            counts=trend_counts,
-            key="selected_trends",
-            title="Trend"
-        )
-
-
-    # session filter
-    if selected_sessions:
-        df_session = DF[ DF["session"].isin(selected_sessions) ]
-    else:
-        df_session = DF
-
-    # trend filter
-    if selected_trends:
-        BARONE = df_session[ df_session["trend"].isin(selected_trends) ]
-    else:
-        BARONE = df_session
-    
-    return BARONE
+st.subheader("Selectbox — formatted semantic values")
+trend = deck_selectbox(label="Trend", options=[None, 1, -1], index=0, format_func=lambda x: {None: "BOTH", 1: "BULL", -1: "BEAR"}[x], label_font_size=14, value_font_size=24, width=220, key="demo_trend")
+st.write("Returned:", trend)
