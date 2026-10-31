@@ -1,6 +1,6 @@
 """Deck UI interactive demo: streamlit run examples/demo.py"""
 import streamlit as st
-from streamlit_deck_ui import deck_slider, deck_buttons, deck_toggle, deck_selectbox
+from streamlit_deck_ui import deck_slider, deck_buttons, deck_toggle, deck_selectbox, deck_number_input
 
 st.set_page_config(page_title="Deck UI Test", layout="wide")
 st.title("Deck UI Test")
@@ -76,3 +76,38 @@ trend = deck_selectbox(
     use_container_width=False,
     key="demo_trend")
 st.write("Returned:", trend)
+
+
+st.divider()
+st.subheader("Number input — integer")
+quantity = deck_number_input(
+    label="Minimum metric overlap",
+    value=2,
+    min_value=1,
+    max_value=10,
+    step=1,
+    label_font_size=16,
+    value_font_size=30,
+    show_limits=True,
+    limits_font_size=12,
+    use_container_width=True,
+    key="demo_number_int",
+)
+st.write("Returned:", quantity, "(type:", type(quantity).__name__, ")")
+
+st.subheader("Number input — decimal, fixed width")
+threshold = deck_number_input(
+    label="Minimum threshold",
+    value=2.5,
+    min_value=0.0,
+    max_value=10.0,
+    step=0.25,
+    label_font_size=16,
+    value_font_size=30,
+    show_limits=True,
+    limits_font_size=12,
+    width=240,
+    use_container_width=False,
+    key="demo_number_float",
+)
+st.write("Returned:", threshold, "(type:", type(threshold).__name__, ")")

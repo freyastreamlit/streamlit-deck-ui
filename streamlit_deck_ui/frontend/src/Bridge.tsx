@@ -4,6 +4,7 @@ import type { ComponentProps } from "streamlit-component-lib";
 import { DeckSlider } from "./components/DeckSlider/DeckSlider";
 import { DeckButtons } from "./components/DeckButtons/DeckButtons";
 import { DeckSelectbox } from "./components/DeckSelectbox/DeckSelectbox";
+import { DeckNumberInput } from "./components/DeckNumberInput/DeckNumberInput";
 
 type Args = Record<string, any>;
 
@@ -35,6 +36,7 @@ function Bridge(props: ComponentProps) {
       {args.component === "deck_slider" && <DeckSliderBridge args={args} />}
       {args.component === "deck_buttons" && <DeckButtonsBridge args={args} />}
       {args.component === "deck_selectbox" && <DeckSelectboxBridge args={args} />}
+      {args.component === "deck_number_input" && <DeckNumberInputBridge args={args} />}
     </div>
   );
 }
@@ -51,4 +53,18 @@ function DeckButtonsBridge({ args }: { args: Args }) {
 
 function DeckSelectboxBridge({ args }: { args: Args }) {
   return <DeckSelectbox labels={args.labels ?? []} value={args.value} label={args.label ?? "SELECT"} width={args.width ?? 240} useContainerWidth={args.useContainerWidth ?? true} labelFontSize={args.labelFontSize ?? 16} valueFontSize={args.valueFontSize ?? 28} padding={args.padding ?? 12} shell={args.shell ?? true} onChange={v => Streamlit.setComponentValue(v)} />;
+}
+
+function DeckNumberInputBridge({ args }: { args: Args }) {
+  return <DeckNumberInput
+    label={args.label ?? "NUMBER"} value={args.value ?? 0}
+    minValue={args.minValue ?? null} maxValue={args.maxValue ?? null}
+    step={args.step ?? 1} precision={args.precision ?? 0}
+    integerMode={args.integerMode ?? true}
+    width={args.width ?? 240} useContainerWidth={args.useContainerWidth ?? true}
+    labelFontSize={args.labelFontSize ?? 16} valueFontSize={args.valueFontSize ?? 28}
+    showLimits={args.showLimits ?? true} limitsFontSize={args.limitsFontSize ?? 12}
+    padding={args.padding ?? 12} shell={args.shell ?? true}
+    onChange={v => Streamlit.setComponentValue(v)}
+  />;
 }
