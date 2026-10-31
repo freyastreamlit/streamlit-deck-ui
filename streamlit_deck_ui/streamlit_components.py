@@ -270,15 +270,11 @@ def deck_toggle(
     return label in result
 
 
-
-import streamlit as st
-
-
 def deck_selectbox(
     label: str,
     options,
     index: int = 0,
-    label_font_size: int = 16,
+    label_font_size: int = 20,
     value_font_size: int = 28,
     border: bool = True,
     padding: int = 12,
@@ -286,32 +282,62 @@ def deck_selectbox(
     key: Optional[str] = None,
     format_func=None,
 ):
-    """React metric-style selectbox. No explicit session-state access."""
+    """React metric-style selectbox."""
+
     options = list(options)
+
     if not options:
         return None
+
     if not 0 <= index < len(options):
         raise ValueError("index out of range")
 
     formatter = format_func or str
     labels = [str(formatter(option)) for option in options]
+
     if len(set(labels)) != len(labels):
         raise ValueError("Selectbox labels must be unique")
 
     default_label = labels[index]
+    raw_key = f"__raw_{key}" if key else None
+
+    # Read existing widget state.
+    current = (
+        st.session_state.get(raw_key, default_label)
+        if raw_key is not None
+        else default_label
+    )
+
+    # Validate BEFORE creating the component.
+    if current not in labels:
+        current = default_label
+
+        if raw_key is not None:
+            st.session_state[raw_key] = current
+
+    # React component.
     selected_label = _component_func(
         component="deck_selectbox",
         labels=labels,
-        value=default_label,
+        value=current,
         label=label,
         width=width,
         labelFontSize=label_font_size,
         valueFontSize=value_font_size,
         padding=padding,
         shell=border,
-        key=key,
-        default=default_label,
+        key=raw_key,
+        default=current,
     )
+
     if selected_label not in labels:
         selected_label = default_label
-    return options[labels.index(selected_label)]
+
+    selected = options[labels.index(selected_label)]
+
+    # Store only the public semantic value.
+    # Streamlit manages raw_key automatically.
+    if key is not None:
+        st.session_state[key] = selected
+
+    return selected

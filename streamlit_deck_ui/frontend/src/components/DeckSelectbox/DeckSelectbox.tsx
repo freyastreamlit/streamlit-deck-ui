@@ -52,11 +52,13 @@ export function DeckSelectbox({
       style={{
         width: `${width}px`,
         padding: `${padding}px`,
+        "--deck-label-size": `${labelFontSize}px`,
+        "--deck-value-size": `${valueFontSize}px`,
       }}
     >
       <div
         className="deck-selectbox-label"
-        style={{ fontSize: `${labelFontSize}px` }}
+        style={{ fontSize: `${labelFontSize}px`, lineHeight: 1.3 }}
       >
         {label}
       </div>
@@ -70,7 +72,7 @@ export function DeckSelectbox({
       >
         <span
           className="deck-selectbox-value"
-          style={{ fontSize: `${valueFontSize}px` }}
+          style={{ fontSize: `${valueFontSize}px`, lineHeight: 1.2 }}
         >
           {selected}
         </span>

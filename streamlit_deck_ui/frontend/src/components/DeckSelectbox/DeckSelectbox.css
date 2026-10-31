@@ -78,3 +78,11 @@
   background: rgba(255,255,255,0.16);
   font-weight: 700;
 }
+
+/* Override global/theme font-size declarations. */
+.deck-selectbox .deck-selectbox-label {
+  font-size: var(--deck-label-size, 16px) !important;
+}
+.deck-selectbox .deck-selectbox-trigger .deck-selectbox-value {
+  font-size: var(--deck-value-size, 28px) !important;
+}
