@@ -1,5 +1,7 @@
 
 import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
+
 import "./DeckSelectbox.css";
 
 type DeckSelectboxProps = {
@@ -56,7 +58,7 @@ export function DeckSelectbox({
         padding: `${padding}px`,
         "--deck-label-size": `${labelFontSize}px`,
         "--deck-value-size": `${valueFontSize}px`,
-      }}
+      } as CSSProperties}
     >
       <div
         className="deck-selectbox-label"

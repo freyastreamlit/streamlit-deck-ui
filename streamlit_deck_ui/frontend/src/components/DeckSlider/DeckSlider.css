@@ -160,17 +160,12 @@
 .deck-slider-value {
 
   margin-top: 18px;
-
   width: 52px;
-
   text-align: center;
-
-  font-size: 12px;
-
+  font-size: 14px;
+  font-weight: 700;
   letter-spacing: 0.04em;
-
   color: rgba(235,235,235,0.52);
-
   font-variant-numeric: tabular-nums;
 }
 
