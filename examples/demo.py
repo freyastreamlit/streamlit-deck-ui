@@ -61,6 +61,7 @@ selected = deck_selectbox(
     value_font_size=30,
     border=True, padding=12,
     width=240,
+    use_container_width=True,
     key="demo_selectbox")
 st.write("Returned:", selected, "(type:", type(selected).__name__, ")")
 
@@ -69,8 +70,9 @@ trend = deck_selectbox(
     label="Trend",
     options=[None, 1, -1],
     index=0, format_func=lambda x: {None: "BOTH", 1: "BULL", -1: "BEAR"}[x],
-    label_font_size=20,
+    label_font_size=14,
     value_font_size=24,
     width=220,
+    use_container_width=False,
     key="demo_trend")
 st.write("Returned:", trend)

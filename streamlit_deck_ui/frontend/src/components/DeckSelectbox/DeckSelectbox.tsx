@@ -7,6 +7,7 @@ type DeckSelectboxProps = {
   value?: string;
   label?: string;
   width?: number;
+  useContainerWidth?: boolean;
   labelFontSize?: number;
   valueFontSize?: number;
   padding?: number;
@@ -19,6 +20,7 @@ export function DeckSelectbox({
   value,
   label = "SELECT",
   width = 240,
+  useContainerWidth = true,
   labelFontSize = 16,
   valueFontSize = 28,
   padding = 12,
@@ -50,7 +52,7 @@ export function DeckSelectbox({
     <div
       className={`deck-selectbox ${shell ? "shell" : ""}`}
       style={{
-        width: `${width}px`,
+        width: useContainerWidth ? "100%" : `${width}px`,
         padding: `${padding}px`,
         "--deck-label-size": `${labelFontSize}px`,
         "--deck-value-size": `${valueFontSize}px`,

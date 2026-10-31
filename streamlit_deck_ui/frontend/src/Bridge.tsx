@@ -31,7 +31,7 @@ function Bridge(props: ComponentProps) {
   }, [args.component]);
 
   return (
-    <div ref={rootRef} style={{ padding: 12, display: "flex", alignItems: "flex-start", justifyContent: "flex-start", fontFamily: "Inter, sans-serif", minHeight: args.component === "deck_selectbox" ? 100 : undefined }}>
+    <div ref={rootRef} style={{ padding: 12, width: "100%", boxSizing: "border-box", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", fontFamily: "Inter, sans-serif", minHeight: args.component === "deck_selectbox" ? 100 : undefined }}>
       {args.component === "deck_slider" && <DeckSliderBridge args={args} />}
       {args.component === "deck_buttons" && <DeckButtonsBridge args={args} />}
       {args.component === "deck_selectbox" && <DeckSelectboxBridge args={args} />}
@@ -50,5 +50,5 @@ function DeckButtonsBridge({ args }: { args: Args }) {
 }
 
 function DeckSelectboxBridge({ args }: { args: Args }) {
-  return <DeckSelectbox labels={args.labels ?? []} value={args.value} label={args.label ?? "SELECT"} width={args.width ?? 240} labelFontSize={args.labelFontSize ?? 16} valueFontSize={args.valueFontSize ?? 28} padding={args.padding ?? 12} shell={args.shell ?? true} onChange={v => Streamlit.setComponentValue(v)} />;
+  return <DeckSelectbox labels={args.labels ?? []} value={args.value} label={args.label ?? "SELECT"} width={args.width ?? 240} useContainerWidth={args.useContainerWidth ?? true} labelFontSize={args.labelFontSize ?? 16} valueFontSize={args.valueFontSize ?? 28} padding={args.padding ?? 12} shell={args.shell ?? true} onChange={v => Streamlit.setComponentValue(v)} />;
 }
