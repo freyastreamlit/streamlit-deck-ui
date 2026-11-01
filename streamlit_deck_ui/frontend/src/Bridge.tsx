@@ -32,11 +32,21 @@ function Bridge(props: ComponentProps) {
   }, [args.component]);
 
   return (
-    <div ref={rootRef} style={{ padding: 12, width: "100%", boxSizing: "border-box", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", fontFamily: "Inter, sans-serif", minHeight: args.component === "deck_selectbox" ? 100 : undefined }}>
+    <div ref={rootRef} style={{
+        padding: 12,
+        width: "100%",
+        boxSizing: "border-box",
+        display: "flex",
+        alignItems: args.component === "deck_buttons" ? "center" : "flex-start",
+        justifyContent: args.component === "deck_buttons" ? "center" : "flex-start",
+        fontFamily: "Inter, sans-serif",
+        minHeight: args.component === "deck_selectbox" ? 100 : undefined }}>
+
       {args.component === "deck_slider" && <DeckSliderBridge args={args} />}
       {args.component === "deck_buttons" && <DeckButtonsBridge args={args} />}
       {args.component === "deck_selectbox" && <DeckSelectboxBridge args={args} />}
       {args.component === "deck_number_input" && <DeckNumberInputBridge args={args} />}
+
     </div>
   );
 }
